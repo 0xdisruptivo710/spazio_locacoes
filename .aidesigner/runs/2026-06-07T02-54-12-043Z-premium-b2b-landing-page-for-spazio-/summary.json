@@ -1,0 +1,19 @@
+{
+  "id": "2026-06-07T02-54-12-043Z-premium-b2b-landing-page-for-spazio-",
+  "createdAt": "2026-06-07T02:54:12.053Z",
+  "prompt": "Premium B2B landing page for Spazio Locacoes renting Ultraformer and Lavieen aesthetic machines to clinics. Clean + premium, pt-BR.",
+  "mode": null,
+  "url": null,
+  "viewport": "desktop",
+  "repoRoot": "C:\\Users\\Usuario\\Desktop\\Projetos\\Spazio Locacoes",
+  "cwd": "C:\\Users\\Usuario\\Desktop\\Projetos\\Spazio Locacoes",
+  "requestPath": "C:\\Users\\Usuario\\Desktop\\Projetos\\Spazio Locacoes\\.aidesigner\\runs\\2026-06-07T02-54-12-043Z-premium-b2b-landing-page-for-spazio-\\request.json",
+  "repoContextPath": "C:\\Users\\Usuario\\Desktop\\Projetos\\Spazio Locacoes\\.aidesigner\\runs\\2026-06-07T02-54-12-043Z-premium-b2b-landing-page-for-spazio-\\repo-context.json",
+  "designHtmlPath": "C:\\Users\\Usuario\\Desktop\\Projetos\\Spazio Locacoes\\.aidesigner\\runs\\2026-06-07T02-54-12-043Z-premium-b2b-landing-page-for-spazio-\\design.html",
+  "previewPath": null,
+  "previewError": "Preview rendering requires puppeteer. Install it in the repo or alongside @aidesigner/agent-skills.",
+  "parentRunId": null,
+  "usage": null,
+  "transport": "mcp",
+  "remoteRunId": "ac8a86b9-9266-4a2d-997b-9b1f54d13f9e"
+}

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth bg-[#fafafa]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spazio Locações | Equipamentos Estéticos de Alta Performance</title>
+    <meta name="description" content="Locação premium de Ultraformer, Lavieen e tecnologias de ponta para clínicas médicas e dermatológicas. Amplie seu portfólio sem descapitalizar.">
+
+    <!-- Frameworks & Design Systems -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Typography Engine -->
+    <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,400,700,900&f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet">
+
+    <!-- CSS Engine / Advanced Physics -->
+    <style>
+        :root {
+            --accent: #BFA181;
+            --accent-hover: #a88a6d;
+            --surface-glass: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Typography Override */
+        body { font-family: 'Satoshi', sans-serif; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+        .font-display { font-family: 'Cabinet Grotesk', sans-serif; }
+
+        /* Custom Scrollbar - High End */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fafafa; }
+        ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+
+        /* Structural & Utility Classes missing from core Tailwind */
+        .glass-panel {
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Interaction Physics */
+        .btn-press:active { transform: scale(0.98) translateY(1px); }
+        .hover-lift { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-lift:hover { transform: translateY(-4px); }
+
+        /* Subtle Noise Texture overlay (Pointer Events None) */
+        .grain-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.25;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Staggered Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Infinite Marquee */
+        .marquee-container { display: flex; overflow: hidden; white-space: nowrap; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;}
+        .marquee-content { display: flex; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Image Masking for Premium feel */
+        .img-mask-reveal { clip-path: inset(100% 0 0 0); transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1); }
+        .img-mask-reveal.active { clip-path: inset(0 0 0 0); }
+
+        /* Grid Architectural lines */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1px;
+            background-color: #e4e4e7; /* zinc-200 */
+            border: 1px solid #e4e4e7;
+        }
+        @media (min-width: 768px) { .arch-grid { grid-template-columns: repeat(2, 1fr); } }
+        .arch-cell { background-color: #fafafa; padding: 3rem; transition: background-color 0.3s ease; }
+        .arch-cell:hover { background-color: #f4f4f5; }
+
+        /* Custom Colors config for arbitrary uncompiled Tailwind */
+        .text-accent { color: var(--accent); }
+        .bg-accent { background-color: var(--accent); }
+        .hover-bg-accent:hover { background-color: var(--accent-hover); }
+        .border-accent { border-color: var(--accent); }
+    </style>
+</head>
+<body class="bg-[#fafafa] text-zinc-900 overflow-x-hidden selection:bg-[#BFA181] selection:text-white">
+
+    <div class="grain-overlay"></div>
+
+    <!-- Macro Architecture: Floating Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-zinc-200/50 py-4 px-4 md:px-8 transition-transform duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <!-- Abstract Logo geometric representation -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" stroke="#18181b" stroke-width="2"/>
+                    <rect x="8" y="8" width="8" height="8" fill="#BFA181"/>
+                </svg>
+                <span class="font-display font-bold text-xl tracking-wide uppercase">Spazio</span>
+            </div>
+            <div class="hidden md:flex gap-8 items-center text-sm font-medium text-zinc-500">
+                <a href="#portfolio" class="hover:text-zinc-900 transition-colors">Portfólio</a>
+                <a href="#vantagens" class="hover:text-zinc-900 transition-colors">Vantagens</a>
+                <a href="#economia" class="hover:text-zinc-900 transition-colors">Economia B2B</a>
+            </div>
+            <a href="#contato" class="hidden md:inline-flex items-center gap-2 bg-zinc-900 text-white px-5 py-2.5 text-sm font-semibold rounded-none btn-press hover:bg-zinc-800 transition-colors">
+                <i class="ph ph-whatsapp logo text-lg"></i>
+                Solicitar Cotação
+            </a>
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-zinc-900 text-2xl"><i class="ph ph-list"></i></button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section: Viewport Stability & Split Asymmetry -->
+        <section class="relative min-h-[100dvh] pt-24 pb-12 px-4 md:px-8 flex flex-col justify-center">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20 items-center">
+
+                <!-- Content Left -->
+                <div class="md:col-span-6 lg:col-span-5 flex flex-col z-10 reveal">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="h-[1px] w-8 bg-accent"></span>
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">High-End B2B Rentals</span>
+                    </div>
+                    <h1 class="font-display text-[12vw] md:text-5xl lg:text-7xl leading-[0.9] tracking-tighter text-zinc-950 mb-6 uppercase">
+                        O Padrão da sua Clínica. <br/>
+                        <span class="text-zinc-400">Eleve sem Descapitalizar.</span>
+                    </h1>
+                    <p class="text-lg text-zinc-600 mb-10 max-w-md leading-relaxed font-light">
+                        Locação estratégica de <strong class="font-medium text-zinc-900">Ultraformer</strong> e <strong class="font-medium text-zinc-900">Lavieen</strong>. Modelos de negócios flexíveis para dermatologistas experientes que buscam alta rentabilidade e risco zero em manutenção.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contato" class="bg-accent hover-bg-accent text-white px-8 py-4 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-3 btn-press transition-colors">
+                            Reservar Data
+                            <i class="ph ph-arrow-right"></i>
+                        </a>
+                        <a href="#portfolio" class="border border-zinc-300 text-zinc-900 hover:bg-zinc-50 px-8 py-4 font-semibold text-sm uppercase tracking-wider flex items-center justify-center btn-press transition-colors">
+                            Ver Tecnologias
+                        </a>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="mt-16 flex items-center gap-6 border-t border-zinc-200 pt-6">
+                        <div class="flex flex-col">
+                            <span class="font-display text-2xl font-bold text-zinc-900">12h</span>
+                            <span class="text-xs text-zinc-500 uppercase tracking-widest">Setup Rápido</span>
+                        </div>
+                        <div class="w-[1px] h-10 bg-zinc-200"></div>
+                        <div class="flex flex-col">
+                            <span class="font-display text-2xl font-bold text-zinc-900">100%</span>
+                            <span class="text-xs text-zinc-500 uppercase tracking-widest">Treinamento Clínico</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Right - Offset & Height Controlled -->
+                <div class="md:col-span-6 lg:col-span-7 h-[60vh] md:h-[85vh] relative mt-10 md:mt-0 img-mask-reveal">
+                    <div class="absolute inset-0 bg-zinc-100">
+                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1200&q=80"
+                             alt="Textura de pele suave e tratamentos dermatológicos minimalistas"
+                             class="w-full h-full object-cover grayscale-[20%] opacity-90 object-center" />
+                        <!-- Liquid Glass Edge effect -->
+                        <div class="absolute inset-0 border border-white/20 shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none"></div>
+                    </div>
+                    <!-- Absolute Floating Badge -->
+                    <div class="absolute -bottom-6 -left-6 md:bottom-12 md:-left-12 glass-panel p-6 flex items-start gap-4 max-w-[280px] reveal delay-200">
+                        <i class="ph ph-shield-check text-accent text-3xl"></i>
+                        <div>
+                            <h4 class="font-display text-sm font-bold text-zinc-900 uppercase">Equipamentos Calibrados</h4>
+                            <p class="text-xs text-zinc-500 mt-1">Atestado de calibração atualizado a cada locação. Segurança total para o paciente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kinetic Marquee -->
+        <div class="bg-zinc-950 py-4 border-y border-zinc-800 marquee-container text-white">
+            <div class="marquee-content flex gap-8 items-center font-display text-sm uppercase tracking-[0.2em] opacity-80">
+                <span>Tecnologia Padrão Ouro</span>
+                <i class="ph ph-star-four text-accent"></i>
+                <span>Entrega Logística Própria</span>
+                <i class="ph ph-star-four text-accent"></i>
+                <span>Suporte Técnico Imediato</span>
+                <i class="ph ph-star-four text-accent"></i>
+                <span>Treinamento de Equipe Incluso</span>
+                <i class="ph ph-star-four text-accent"></i>
+                <span>Maximização de Lucro Clínico</span>
+                <i class="ph ph-star-four text-accent"></i>
+                <span>Tecnologia Padrão Ouro</span>
+                <i class="ph ph-star-four text-accent"></i>
+                <span>Entrega Logística Própria</span>
+                <i class="ph ph-star-four text-accent"></i>
+                <span>Suporte Técnico Imediato</span>
+            </div>
+        </div>
+
+        <!-- Meso Architecture: Sticky Portfolio Section -->
+        <section id="portfolio" class="relative py-24 px-4 md:px-8 border-b border-zinc-200">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 relative">
+
+                <!-- Sticky Left Panel -->
+                <div class="lg:w-1/3 lg:sticky lg:top-32 h-fit reveal">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold uppercase tracking-tighter leading-none mb-6">
+                        Arsenal <br/><span class="text-zinc-400">Tecnológico</span>
+                    </h2>
+                    <p class="text-zinc-600 mb-8 leading-relaxed">
+                        Nossa frota é composta exclusivamente pelos dispositivos de maior conversão de mercado. Pare de perder pacientes para clínicas vizinhas por falta de tecnologia.
+                    </p>
+                    <div class="flex flex-col gap-4 border-l-2 border-zinc-200 pl-4">
+                        <a href="#ultraformer" class="text-sm font-semibold uppercase tracking-wider text-zinc-400 hover:text-zinc-900 transition-colors">01 / Ultraformer</a>
+                        <a href="#lavieen" class="text-sm font-semibold uppercase tracking-wider text-zinc-400 hover:text-zinc-900 transition-colors">02 / Lavieen</a>
+                    </div>
+                </div>
+
+                <!-- Scrolling Right Panel (The Data Density) -->
+                <div class="lg:w-2/3 flex flex-col gap-24">
+
+                    <!-- Article: Ultraformer -->
+                    <article id="ultraformer" class="reveal">
+                        <div class="relative h-[50vh] md:h-[60vh] bg-zinc-100 mb-8 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80"
+                                 alt="Tratamento facial não cirúrgico com tecnologia de ultrassom"
+                                 class="w-full h-full object-cover opacity-90 grayscale-[15%] group-hover:scale-105 transition-transform duration-1000 ease-in-out"/>
+                            <div class="absolute inset-0 border border-black/5 m-4 pointer-events-none"></div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row gap-8 justify-between items-start border-b border-zinc-200 pb-8 mb-8">
+                            <div>
+                                <h3 class="font-display text-4xl font-bold mb-2 uppercase tracking-tight">Ultraformer</h3>
+                                <p class="text-accent uppercase tracking-widest text-xs font-bold">Ultrassom Micro e Macrofocado</p>
+                            </div>
+                            <div class="md:text-right">
+                                <span class="block text-sm text-zinc-500 uppercase tracking-widest mb-1">Ticket Médio Clinica</span>
+                                <span class="font-display text-2xl font-bold">R$ 2k - 6k+</span>
+                            </div>
+                        </div>
+
+                        <p class="text-zinc-600 mb-8">O padrão absoluto em lifting facial não cirúrgico e contorno corporal. A locação do Ultraformer garante uma agenda premium preenchida, atraindo o perfil de paciente de mais alto valor para sua clínica.</p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm text-zinc-800">
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Máxima precisão e conforto ao paciente</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Transdutores faciais e corporais inclusos</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Sem downtime operatório</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Alta rentabilidade por hora clínica</li>
+                        </ul>
+                    </article>
+
+                    <!-- Article: Lavieen -->
+                    <article id="lavieen" class="reveal">
+                        <div class="relative h-[50vh] md:h-[60vh] bg-zinc-100 mb-8 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80"
+                                 alt="Ambiente clínico de estética avançada"
+                                 class="w-full h-full object-cover opacity-90 grayscale-[15%] group-hover:scale-105 transition-transform duration-1000 ease-in-out"/>
+                            <div class="absolute inset-0 border border-black/5 m-4 pointer-events-none"></div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row gap-8 justify-between items-start border-b border-zinc-200 pb-8 mb-8">
+                            <div>
+                                <h3 class="font-display text-4xl font-bold mb-2 uppercase tracking-tight">Lavieen</h3>
+                                <p class="text-accent uppercase tracking-widest text-xs font-bold">Laser Thulium 1927nm (BB Laser)</p>
+                            </div>
+                            <div class="md:text-right">
+                                <span class="block text-sm text-zinc-500 uppercase tracking-widest mb-1">Rotatividade</span>
+                                <span class="font-display text-2xl font-bold">Altíssima</span>
+                            </div>
+                        </div>
+
+                        <p class="text-zinc-600 mb-8">Conhecido como o laser do "Efeito Photoshop". Essencial para tratamentos de melasma, poros dilatados, textura e o cobiçado glow imediato. Um coringa indispensável na rotina de qualquer dermatologista moderno.</p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm text-zinc-800">
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Tratamento em todos os fototipos</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Versatilidade de camadas (suave a profundo)</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Recuperação ultrarrápida</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check text-accent"></i> Crescimento explosivo de demanda</li>
+                        </ul>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- The Intelligence Grid (Bento/Architectural) -->
+        <section id="vantagens" class="py-24 px-4 md:px-0 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center md:text-left mb-16 md:px-8 reveal">
+                    <h2 class="font-display text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-none mb-4">A Lógica da <br/>Locação Premium</h2>
+                    <p class="text-zinc-500 max-w-xl text-lg">Nossa infraestrutura existe para que você foque 100% no atendimento clínico estratégico.</p>
+                </div>
+
+                <div class="arch-grid reveal delay-100">
+                    <!-- Cell 1 -->
+                    <div class="arch-cell flex flex-col h-full group">
+                        <i class="ph ph-truck text-4xl text-accent mb-6 transform group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl font-bold uppercase tracking-tight mb-3">Logística Impecável</h4>
+                        <p class="text-zinc-600 text-sm leading-relaxed mt-auto">Entrega, montagem e calibração realizadas por equipe técnica especializada. Seu equipamento chega em estado cirúrgico, pronto para disparos pontuais.</p>
+                    </div>
+                    <!-- Cell 2 -->
+                    <div class="arch-cell flex flex-col h-full group">
+                        <i class="ph ph-certificate text-4xl text-accent mb-6 transform group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl font-bold uppercase tracking-tight mb-3">Treinamento Clínico</h4>
+                        <p class="text-zinc-600 text-sm leading-relaxed mt-auto">Não entregamos apenas a máquina. Capacitamos sua equipe para operar com protocolos otimizados, garantindo segurança e resultados dramáticos aos pacientes.</p>
+                    </div>
+                    <!-- Cell 3 -->
+                    <div class="arch-cell flex flex-col h-full group">
+                        <i class="ph ph-headset text-4xl text-accent mb-6 transform group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl font-bold uppercase tracking-tight mb-3">Suporte Operacional</h4>
+                        <p class="text-zinc-600 text-sm leading-relaxed mt-auto">A agenda não pode parar. Contamos com linha direta para resolução de problemas e máquina de backup para garantir que seus atendimentos nunca sofram interrupções.</p>
+                    </div>
+                    <!-- Cell 4 -->
+                    <div class="arch-cell flex flex-col h-full group">
+                        <i class="ph ph-presentation-chart text-4xl text-accent mb-6 transform group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl font-bold uppercase tracking-tight mb-3">Marketing & Setup</h4>
+                        <p class="text-zinc-600 text-sm leading-relaxed mt-auto">Fornecemos guias visuais e recomendações de comunicação para ajudar sua clínica a divulgar o "Day Laser" ou as diárias de Ultraformer com o máximo de conversão antes mesmo da máquina chegar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Economics / Structural Break (Dark Mode) -->
+        <section id="economia" class="bg-zinc-950 text-white py-32 px-4 md:px-8 relative overflow-hidden">
+            <!-- Background abstraction -->
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-zinc-900 to-transparent opacity-50 pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+                <div class="reveal">
+                    <span class="text-accent text-sm uppercase tracking-widest font-bold mb-4 block">Inteligência Financeira</span>
+                    <h2 class="font-display text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-none mb-8">Por que alugar transcende comprar?</h2>
+                    <p class="text-zinc-400 text-lg max-w-md leading-relaxed mb-8">
+                        Adquirir um equipamento de ponta compromete seu fluxo de caixa e traz o peso da depreciação tecnológica rápida. A locação transforma um custo fixo de alto risco em um custo variável altamente rentável mensalmente.
+                    </p>
+                    <a href="#contato" class="inline-flex border-b border-accent pb-1 text-accent hover:text-white hover:border-white transition-colors duration-300 font-medium uppercase text-sm tracking-wider">
+                        Solicitar Análise de ROI
+                    </a>
+                </div>
+
+                <div class="flex flex-col justify-center border-l-0 lg:border-l border-zinc-800 lg:pl-16 reveal delay-200">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
+                        <div>
+                            <span class="font-display text-6xl text-white block mb-2 font-bold tracking-tighter">0%</span>
+                            <span class="text-zinc-500 text-xs uppercase tracking-widest font-bold">Custo de Manutenção</span>
+                        </div>
+                        <div>
+                            <span class="font-display text-6xl text-white block mb-2 font-bold tracking-tighter">100%</span>
+                            <span class="text-zinc-500 text-xs uppercase tracking-widest font-bold">Dedutível no Imposto de Renda</span>
+                        </div>
+                        <div>
+                            <span class="font-display text-6xl text-white block mb-2 font-bold tracking-tighter">Imediato</span>
+                            <span class="text-zinc-500 text-xs uppercase tracking-widest font-bold">Retorno sobre Investimento (Cashflow)</span>
+                        </div>
+                        <div>
+                            <span class="font-display text-6xl text-white block mb-2 font-bold tracking-tighter">ZERO</span>
+                            <span class="text-zinc-500 text-xs uppercase tracking-widest font-bold">Risco de Obsolescência</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Layer -->
+        <section id="contato" class="py-32 px-4 md:px-8 bg-[#fafafa] flex flex-col items-center justify-center text-center border-b border-zinc-200 reveal">
+            <span class="h-16 w-[1px] bg-accent mb-8 block opacity-50"></span>
+            <h2 class="font-display text-5xl md:text-8xl font-bold uppercase tracking-tighter leading-none text-zinc-950 mb-8 max-w-5xl">
+                A Excelência Clínica<br/>não espera.
+            </h2>
+            <p class="text-zinc-600 mb-12 max-w-lg text-lg">Verifique a disponibilidade de agenda das tecnologias em sua região e inicie seu processo de reserva premium hoje.</p>
+
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer"
+               class="bg-zinc-950 text-white hover:bg-zinc-800 px-10 py-6 text-lg font-bold uppercase tracking-wider flex items-center gap-4 hover-lift transition-all shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)]">
+                <i class="ph ph-whatsapp text-2xl text-accent"></i>
+                Falar com Consultor
+            </a>
+            <span class="text-xs text-zinc-400 mt-6 uppercase tracking-widest">Atendimento Comercial via WhatsApp</span>
+        </section>
+    </main>
+
+    <!-- Refined Footer -->
+    <footer class="bg-white py-12 px-4 md:px-8 text-sm text-zinc-500 border-t border-zinc-200">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" stroke="#71717a" stroke-width="2"/>
+                    <rect x="8" y="8" width="8" height="8" fill="#BFA181"/>
+                </svg>
+                <span class="font-display font-medium tracking-wide uppercase text-zinc-900">Spazio Locações © 2026</span>
+            </div>
+            <div class="flex gap-6 uppercase tracking-widest text-[10px] font-bold">
+                <a href="#" class="hover:text-zinc-900 transition-colors">Termos de Serviço</a>
+                <a href="#" class="hover:text-zinc-900 transition-colors">Privacidade</a>
+                <a href="#" class="hover:text-zinc-900 transition-colors">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vanilla JS Interaction Engine -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Intersection Observer for Architectural Elements Revealing
+            const appearOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                });
+            }, appearOptions);
+
+            const dividers = document.querySelectorAll('.reveal, .img-mask-reveal');
+            dividers.forEach(slider => {
+                appearOnScroll.observe(slider);
+            });
+
+            // 2. Dynamic Navbar Glass Effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
+                    navbar.style.borderBottomColor = 'rgba(0, 0, 0, 0.08)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+                    navbar.style.borderBottomColor = 'rgba(0, 0, 0, 0.04)';
+                }
+            });
+
+            // 3. Mobile Nav Reset (Simulated function for single file B2B demo)
+            const mobileBtn = document.querySelector('button.md\\:hidden');
+            if(mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    // Mobile menu expand logic could go here.
+                    // For a pure single file UI demo, keeping it minimalist.
+                    window.location.href = "#contato";
+                });
+            }
+        });
+    </script>
+</body>
+</html>

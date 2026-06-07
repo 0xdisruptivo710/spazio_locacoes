@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spazio Locações | Locação de Ultraformer III e Lavieen para Clínicas</title>
+    <meta name="description" content="Locação premium de Ultraformer III e Lavieen (BB Laser, liberado pela FDA) para clínicas de estética e dermatologia. Ofereça rejuvenescimento de alta performance sem descapitalizar.">
+
+    <!-- Frameworks -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Typography: Fraunces (display serif) + Satoshi (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:        #F6F0E8; /* warm ivory canvas */
+            --bg-warm:   #FCFAF6; /* soft warm white */
+            --ink:       #2E2722; /* warm espresso text */
+            --ink-soft:  #6F6256; /* warm taupe text */
+            --accent:    #BFA181; /* champagne gold */
+            --accent-deep:#A6855C;
+            --line:      #E7DACA; /* warm hairline */
+            --espresso:  #241D18; /* dark warm surface */
+        }
+
+        body { font-family: 'Satoshi', sans-serif; background: var(--bg); color: var(--ink); text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+        .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+
+        /* Color utilities (mapped to brand tokens) */
+        .bg-cream    { background: var(--bg); }
+        .bg-warm     { background: var(--bg-warm); }
+        .bg-espresso { background: var(--espresso); }
+        .bg-accent   { background: var(--accent); }
+        .text-ink    { color: var(--ink); }
+        .text-ink-soft { color: var(--ink-soft); }
+        .text-accent { color: var(--accent); }
+        .border-line { border-color: var(--line); }
+        .border-accent { border-color: var(--accent); }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 9px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #D8C7B2; border-radius: 9px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        ::selection { background: var(--accent); color: #fff; }
+
+        /* Glass nav */
+        .glass-panel {
+            background: rgba(252, 250, 246, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(231, 218, 202, 0.7);
+        }
+
+        /* Pills + interaction physics */
+        .btn { border-radius: 9999px; transition: all .35s cubic-bezier(.16,1,.3,1); }
+        .btn:active { transform: scale(.98) translateY(1px); }
+        .btn-accent { background: var(--accent); color: #fff; }
+        .btn-accent:hover { background: var(--accent-deep); }
+        .btn-ink { background: var(--ink); color: var(--bg-warm); }
+        .btn-ink:hover { background: var(--espresso); }
+        .btn-outline { border: 1px solid var(--line); color: var(--ink); }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        .hover-lift { transition: transform .4s cubic-bezier(.175,.885,.32,1.275), box-shadow .4s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+
+        /* Subtle warm grain */
+        .grain-overlay {
+            position: fixed; inset: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.05; mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(28px); transition: all .9s cubic-bezier(.16,1,.3,1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Image mask reveal */
+        .img-mask-reveal { clip-path: inset(100% 0 0 0); transition: clip-path 1.2s cubic-bezier(.77,0,.175,1); }
+        .img-mask-reveal.active { clip-path: inset(0 0 0 0); }
+
+        /* Warm-toned imagery */
+        .img-warm { filter: saturate(1.02) contrast(1.02); }
+
+        /* Marquee */
+        .marquee-container { display: flex; overflow: hidden; white-space: nowrap; width: 100vw; position: relative; left: 50%; margin-left: -50vw; }
+        .marquee-content { display: flex; animation: marquee 34s linear infinite; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* Soft bento grid */
+        .bento-cell { background: var(--bg-warm); border: 1px solid var(--line); border-radius: 22px; transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s ease; }
+        .bento-cell:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -28px rgba(46,39,34,.25); }
+    </style>
+</head>
+<body class="bg-cream text-ink overflow-x-hidden">
+
+    <div class="grain-overlay"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass-panel py-4 px-5 md:px-8 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Brand wordmark -->
+            <a href="#" class="flex items-center gap-3 group">
+                <span class="relative inline-flex items-center justify-center w-9 h-9">
+                    <svg viewBox="0 0 40 40" class="w-9 h-9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18.5" stroke="#BFA181" stroke-width="1.3"/>
+                        <path d="M20 11c2.6 3.1 5 5.6 5 9a5 5 0 11-10 0c0-3.4 2.4-5.9 5-9z" fill="#BFA181"/>
+                    </svg>
+                </span>
+                <span class="leading-none">
+                    <span class="font-display text-2xl tracking-tight text-ink" style="font-weight:500;">Spazio</span>
+                    <span class="block text-[9px] tracking-[0.42em] uppercase text-ink-soft mt-0.5">Locações</span>
+                </span>
+            </a>
+
+            <div class="hidden md:flex gap-9 items-center text-sm text-ink-soft">
+                <a href="#tecnologias" class="hover:text-ink transition-colors">Tecnologias</a>
+                <a href="#vantagens" class="hover:text-ink transition-colors">Vantagens</a>
+                <a href="#economia" class="hover:text-ink transition-colors">Por que alugar</a>
+            </div>
+
+            <a href="#contato" class="hidden md:inline-flex items-center gap-2 btn btn-ink px-6 py-3 text-sm font-medium">
+                <i class="ph ph-whatsapp text-lg"></i>
+                Solicitar Cotação
+            </a>
+
+            <button class="md:hidden text-ink text-2xl" aria-label="Menu"><i class="ph ph-list"></i></button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero -->
+        <section class="relative min-h-[100dvh] pt-28 pb-16 px-5 md:px-8 flex flex-col justify-center">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+                <div class="md:col-span-6 lg:col-span-6 flex flex-col z-10 reveal">
+                    <div class="flex items-center gap-3 mb-7">
+                        <span class="h-px w-9 bg-accent"></span>
+                        <span class="text-xs tracking-[0.28em] uppercase text-accent font-medium">Locação Premium para Clínicas</span>
+                    </div>
+
+                    <h1 class="font-display text-[2.7rem] leading-[1.02] md:text-6xl lg:text-7xl tracking-[-0.02em] text-ink mb-7" style="font-weight:400;">
+                        Eleve o padrão da<br/>sua clínica
+                        <span class="italic text-accent" style="font-weight:400;">sem descapitalizar.</span>
+                    </h1>
+
+                    <p class="text-lg text-ink-soft mb-9 max-w-md leading-relaxed">
+                        Locação estratégica de <strong class="font-medium text-ink">Ultraformer III</strong> e <strong class="font-medium text-ink">Lavieen</strong> — as tecnologias de rejuvenescimento mais desejadas do mercado, com entrega, treinamento e suporte inclusos.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3.5">
+                        <a href="#contato" class="btn btn-accent px-8 py-4 text-sm font-semibold tracking-wide flex items-center justify-center gap-3">
+                            Alugue agora mesmo
+                            <i class="ph ph-arrow-right"></i>
+                        </a>
+                        <a href="#tecnologias" class="btn btn-outline px-8 py-4 text-sm font-semibold tracking-wide flex items-center justify-center">
+                            Ver tecnologias
+                        </a>
+                    </div>
+
+                    <div class="mt-14 flex items-center gap-7 border-t border-line pt-7">
+                        <div class="flex flex-col">
+                            <span class="font-display text-3xl text-ink" style="font-weight:500;">FDA</span>
+                            <span class="text-xs text-ink-soft tracking-wide mt-1">Lavieen liberado</span>
+                        </div>
+                        <div class="w-px h-11 bg-line"></div>
+                        <div class="flex flex-col">
+                            <span class="font-display text-3xl text-ink" style="font-weight:500;">100%</span>
+                            <span class="text-xs text-ink-soft tracking-wide mt-1">Treinamento clínico</span>
+                        </div>
+                        <div class="w-px h-11 bg-line"></div>
+                        <div class="flex flex-col">
+                            <span class="font-display text-3xl text-ink" style="font-weight:500;">0</span>
+                            <span class="text-xs text-ink-soft tracking-wide mt-1">Custo de manutenção</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-6 lg:col-span-6 h-[58vh] md:h-[82vh] relative mt-6 md:mt-0">
+                    <div class="absolute inset-0 rounded-[28px] overflow-hidden bg-[#EADFCF]">
+                        <img src="fotos/hero-pele-radiante.png"
+                             alt="Pele radiante e revitalizada após tratamento estético de alta performance"
+                             class="w-full h-full object-cover object-[50%_28%] img-warm" />
+                        <div class="absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/25 pointer-events-none"></div>
+                    </div>
+
+                    <div class="absolute -bottom-6 left-4 md:bottom-10 md:-left-10 bg-[#FCFAF6]/95 backdrop-blur-xl backdrop-saturate-150 border border-line rounded-2xl p-5 flex items-start gap-4 max-w-[270px] shadow-[0_20px_44px_-14px_rgba(46,39,34,.55)] ring-1 ring-black/5 reveal delay-200">
+                        <i class="ph ph-seal-check text-accent text-3xl shrink-0"></i>
+                        <div>
+                            <h4 class="font-display text-base text-ink" style="font-weight:600;">Equipamentos calibrados</h4>
+                            <p class="text-xs text-ink-soft mt-1 leading-relaxed">Atestado de calibração atualizado a cada locação. Segurança total para o paciente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee -->
+        <div class="bg-espresso py-4 marquee-container text-[#EFE6D8]">
+            <div class="marquee-content gap-8 items-center text-sm tracking-[0.18em] uppercase opacity-90">
+                <span>Tecnologia Padrão Ouro</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Entrega &amp; Logística Própria</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Suporte Técnico Imediato</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Treinamento de Equipe Incluso</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Mais Rentabilidade Clínica</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Tecnologia Padrão Ouro</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Entrega &amp; Logística Própria</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Suporte Técnico Imediato</span>
+                <i class="ph ph-flower-lotus text-accent"></i>
+                <span>Treinamento de Equipe Incluso</span>
+            </div>
+        </div>
+
+        <!-- Technologies -->
+        <section id="tecnologias" class="relative py-24 md:py-28 px-5 md:px-8">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-14 lg:gap-20 relative">
+
+                <div class="lg:w-1/3 lg:sticky lg:top-32 h-fit reveal">
+                    <span class="text-xs tracking-[0.28em] uppercase text-accent font-medium">Nosso portfólio</span>
+                    <h2 class="font-display text-4xl md:text-5xl tracking-[-0.02em] leading-[1.05] mt-4 mb-6 text-ink" style="font-weight:400;">
+                        As tecnologias que <span class="italic text-accent">enchem a agenda</span>
+                    </h2>
+                    <p class="text-ink-soft mb-8 leading-relaxed">
+                        Trabalhamos exclusivamente com os dispositivos de maior procura e conversão. Pare de perder pacientes para a clínica vizinha por falta de tecnologia.
+                    </p>
+                    <div class="flex flex-col gap-3 border-l border-line pl-5">
+                        <a href="#ultraformer" class="text-sm tracking-wide text-ink-soft hover:text-ink transition-colors">01 — Ultraformer III</a>
+                        <a href="#lavieen" class="text-sm tracking-wide text-ink-soft hover:text-ink transition-colors">02 — Lavieen (BB Laser)</a>
+                    </div>
+                </div>
+
+                <div class="lg:w-2/3 flex flex-col gap-20">
+
+                    <!-- Ultraformer III -->
+                    <article id="ultraformer" class="reveal">
+                        <h3 class="sr-only">Locação do Ultraformer III — lifting facial não cirúrgico</h3>
+                        <div class="rounded-[26px] overflow-hidden border border-line bg-warm mb-8 hover-lift shadow-[0_24px_60px_-34px_rgba(46,39,34,.4)]">
+                            <img src="fotos/ultraformer-lifting.png"
+                                 alt="Ultraformer III: lifting facial não cirúrgico que transforma — locação Spazio"
+                                 class="w-full h-auto block"/>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row gap-6 justify-between items-start border-b border-line pb-7 mb-7">
+                            <div>
+                                <p class="text-accent tracking-[0.2em] uppercase text-xs font-medium">Ultrassom micro e macrofocado</p>
+                                <p class="font-display text-2xl md:text-3xl text-ink tracking-tight mt-2" style="font-weight:500;">Lifting e contorno corporal, sem cirurgia.</p>
+                            </div>
+                            <div class="md:text-right shrink-0">
+                                <span class="block text-xs text-ink-soft tracking-[0.18em] uppercase mb-1">Ticket médio na clínica</span>
+                                <span class="font-display text-2xl text-ink" style="font-weight:500;">R$ 2k – 6k+</span>
+                            </div>
+                        </div>
+
+                        <p class="text-ink-soft mb-7 leading-relaxed">O padrão absoluto em lifting facial não cirúrgico e contorno corporal. Proporcione rejuvenescimento de alta performance aos seus clientes e atraia o paciente de maior valor para a sua agenda.</p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-3.5 gap-x-8 text-sm text-ink mb-8">
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Lifting facial e contorno corporal</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Transdutores faciais e corporais inclusos</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Sem downtime para o paciente</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Alta rentabilidade por hora clínica</li>
+                        </ul>
+
+                        <a href="#contato" class="btn btn-outline inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold tracking-wide">
+                            Quero alugar o Ultraformer III <i class="ph ph-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <!-- Lavieen -->
+                    <article id="lavieen" class="reveal">
+                        <h3 class="sr-only">Locação do Lavieen — o verdadeiro BB Laser, liberado pela FDA</h3>
+                        <div class="rounded-[26px] overflow-hidden border border-line bg-warm mb-8 hover-lift shadow-[0_24px_60px_-34px_rgba(46,39,34,.4)]">
+                            <img src="fotos/lavieen-bblaser.png"
+                                 alt="Lavieen: o verdadeiro BB Laser para rejuvenescimento da pele — locação Spazio"
+                                 class="w-full h-auto block"/>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row gap-6 justify-between items-start border-b border-line pb-7 mb-7">
+                            <div>
+                                <p class="text-accent tracking-[0.2em] uppercase text-xs font-medium">O único e verdadeiro BB Laser · Thulium 1927nm</p>
+                                <p class="font-display text-2xl md:text-3xl text-ink tracking-tight mt-2" style="font-weight:500;">A melhor versão da pele, em sessões.</p>
+                            </div>
+                            <div class="md:text-right shrink-0">
+                                <span class="block text-xs text-ink-soft tracking-[0.18em] uppercase mb-1">Rotatividade</span>
+                                <span class="font-display text-2xl text-ink" style="font-weight:500;">Altíssima</span>
+                            </div>
+                        </div>
+
+                        <p class="text-ink-soft mb-7 leading-relaxed">Conhecido como o laser do "efeito glow". Essencial para melasma, poros dilatados, textura e a luminosidade imediata que a paciente vê no espelho. Um coringa indispensável na dermatologia moderna.</p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-3.5 gap-x-8 text-sm text-ink mb-8">
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Indicado para todos os fototipos</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Da camada suave à mais profunda</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Recuperação ultrarrápida</li>
+                            <li class="flex items-center gap-3"><i class="ph ph-check-circle text-accent text-lg"></i> Demanda em crescimento explosivo</li>
+                        </ul>
+
+                        <a href="#contato" class="btn btn-outline inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold tracking-wide">
+                            Quero alugar o Lavieen <i class="ph ph-arrow-right"></i>
+                        </a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Stand out from competitors -->
+        <section id="destaque" class="py-20 md:py-24 px-5 md:px-8 bg-warm">
+            <div class="max-w-7xl mx-auto reveal">
+                <div class="rounded-[26px] overflow-hidden border border-line bg-cream shadow-[0_24px_60px_-34px_rgba(46,39,34,.4)]">
+                    <img src="fotos/destaque-concorrencia.png"
+                         alt="Se destaque da concorrência: tecnologia, estratégia e resultados que colocam sua clínica à frente"
+                         class="w-full h-auto block"/>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mt-9">
+                    <h2 class="font-display text-3xl md:text-4xl tracking-[-0.02em] leading-[1.08] text-ink max-w-xl" style="font-weight:400;">
+                        Tecnologia que coloca sua clínica <span class="italic text-accent">à frente.</span>
+                    </h2>
+                    <a href="#contato" class="btn btn-accent px-8 py-4 text-sm font-semibold tracking-wide inline-flex items-center justify-center gap-3 shrink-0">
+                        Quero me destacar <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advantages -->
+        <section id="vantagens" class="py-24 md:py-28 px-5 md:px-8 bg-cream">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-14 reveal max-w-2xl">
+                    <span class="text-xs tracking-[0.28em] uppercase text-accent font-medium">A experiência Spazio</span>
+                    <h2 class="font-display text-4xl md:text-5xl tracking-[-0.02em] leading-[1.05] mt-4 text-ink" style="font-weight:400;">
+                        A lógica da locação <span class="italic text-accent">premium</span>
+                    </h2>
+                    <p class="text-ink-soft mt-5 text-lg leading-relaxed">Nossa estrutura existe para que você foque 100% no atendimento clínico — do resto cuidamos nós.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 reveal delay-100">
+                    <div class="bento-cell p-8 md:p-9 flex flex-col group">
+                        <i class="ph ph-truck text-3xl text-accent mb-5 group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl text-ink mb-3" style="font-weight:500;">Logística impecável</h4>
+                        <p class="text-ink-soft text-sm leading-relaxed">Entrega, montagem e calibração por equipe técnica especializada. O equipamento chega pronto para os primeiros disparos.</p>
+                    </div>
+                    <div class="bento-cell p-8 md:p-9 flex flex-col group">
+                        <i class="ph ph-graduation-cap text-3xl text-accent mb-5 group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl text-ink mb-3" style="font-weight:500;">Treinamento clínico</h4>
+                        <p class="text-ink-soft text-sm leading-relaxed">Capacitamos sua equipe com protocolos otimizados, garantindo segurança e resultados que encantam o paciente.</p>
+                    </div>
+                    <div class="bento-cell p-8 md:p-9 flex flex-col group">
+                        <i class="ph ph-headset text-3xl text-accent mb-5 group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl text-ink mb-3" style="font-weight:500;">Suporte operacional</h4>
+                        <p class="text-ink-soft text-sm leading-relaxed">A agenda não para. Linha direta para suporte e equipamento de backup para que seus atendimentos nunca sofram interrupção.</p>
+                    </div>
+                    <div class="bento-cell p-8 md:p-9 flex flex-col group">
+                        <i class="ph ph-megaphone-simple text-3xl text-accent mb-5 group-hover:-translate-y-1 transition-transform"></i>
+                        <h4 class="font-display text-2xl text-ink mb-3" style="font-weight:500;">Marketing &amp; divulgação</h4>
+                        <p class="text-ink-soft text-sm leading-relaxed">Guias visuais e recomendações de comunicação para divulgar o "Day Laser" e as diárias de Ultraformer com máxima conversão.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial intelligence banner -->
+        <section id="economia" class="py-20 md:py-24 px-5 md:px-8 bg-cream">
+            <div class="max-w-7xl mx-auto reveal">
+                <div class="rounded-[26px] overflow-hidden border border-line bg-warm shadow-[0_24px_60px_-34px_rgba(46,39,34,.4)]">
+                    <img src="fotos/inteligencia-financeira.png"
+                         alt="Inteligência financeira para clínicas que crescem: custos reduzidos, mais lucro e tecnologia sem descapitalizar"
+                         class="w-full h-auto block"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROI stats band (dark) -->
+        <section class="bg-espresso text-[#F1E9DC] py-24 md:py-28 px-5 md:px-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#2E251E] to-transparent opacity-60 pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+                <div class="reveal">
+                    <span class="text-accent text-xs tracking-[0.28em] uppercase font-medium mb-5 block">O cálculo da locação</span>
+                    <h2 class="font-display text-4xl md:text-6xl tracking-[-0.02em] leading-[1.04] mb-7" style="font-weight:400;">
+                        Por que alugar<br/><span class="italic text-accent">supera comprar?</span>
+                    </h2>
+                    <p class="text-[#C8B9A6] text-lg max-w-md leading-relaxed mb-8">
+                        Adquirir um equipamento de ponta compromete o fluxo de caixa e carrega o peso da depreciação tecnológica. A locação transforma um custo fixo de alto risco em um custo variável altamente rentável, mês a mês.
+                    </p>
+                    <a href="#contato" class="inline-flex items-center gap-2 border-b border-accent pb-1 text-accent hover:text-white hover:border-white transition-colors text-sm tracking-wide font-medium">
+                        Solicitar análise de ROI <i class="ph ph-arrow-up-right"></i>
+                    </a>
+                </div>
+
+                <div class="flex flex-col justify-center lg:border-l border-[#3D332A] lg:pl-16 reveal delay-200">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                        <div>
+                            <span class="font-display text-5xl md:text-6xl block mb-2 text-white" style="font-weight:400;">0%</span>
+                            <span class="text-[#A99884] text-xs uppercase tracking-[0.16em]">Custo de manutenção</span>
+                        </div>
+                        <div>
+                            <span class="font-display text-5xl md:text-6xl block mb-2 text-white" style="font-weight:400;">100%</span>
+                            <span class="text-[#A99884] text-xs uppercase tracking-[0.16em]">Dedutível no Imposto de Renda</span>
+                        </div>
+                        <div>
+                            <span class="font-display text-5xl md:text-6xl block mb-2 text-white" style="font-weight:400;">Imediato</span>
+                            <span class="text-[#A99884] text-xs uppercase tracking-[0.16em]">Retorno no fluxo de caixa</span>
+                        </div>
+                        <div>
+                            <span class="font-display text-5xl md:text-6xl block mb-2 text-white" style="font-weight:400;">Zero</span>
+                            <span class="text-[#A99884] text-xs uppercase tracking-[0.16em]">Risco de obsolescência</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner: Aios CRM -->
+        <section id="parceria-aios" class="py-20 md:py-28 px-5 md:px-8 bg-cream">
+            <div class="max-w-7xl mx-auto reveal">
+                <div class="relative overflow-hidden rounded-[28px] border border-line bg-warm shadow-[0_30px_70px_-40px_rgba(46,39,34,.5)] grid grid-cols-1 lg:grid-cols-2">
+
+                    <!-- Copy -->
+                    <div class="p-9 md:p-14 flex flex-col justify-center order-2 lg:order-1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="text-xs tracking-[0.28em] uppercase text-accent font-medium">Parceria comercial</span>
+                            <span class="text-xs tracking-[0.28em] uppercase text-ink-soft">Spazio × Aios</span>
+                        </div>
+
+                        <h2 class="font-display text-3xl md:text-5xl tracking-[-0.02em] leading-[1.05] text-ink mb-5" style="font-weight:400;">
+                            Alugou com a Spazio? <span class="italic text-accent">Ganhe 1 mês de Aios.</span>
+                        </h2>
+
+                        <p class="text-ink-soft text-lg leading-relaxed mb-7 max-w-lg">
+                            O <strong class="font-medium text-ink">Aios</strong> é nosso parceiro de CRM e inteligência artificial. Toda clínica que aluga uma tecnologia com a Spazio ganha <strong class="font-medium text-ink">1 mês de teste do CRM Aios e da IA de atendimento</strong> — que responde, qualifica e agenda cada lead do seu WhatsApp, 24 horas por dia.
+                        </p>
+
+                        <ul class="flex flex-wrap gap-2.5 mb-9">
+                            <li class="flex items-center gap-2 text-sm text-ink border border-line rounded-full px-4 py-2 bg-cream"><i class="ph ph-kanban text-accent"></i> CRM completo</li>
+                            <li class="flex items-center gap-2 text-sm text-ink border border-line rounded-full px-4 py-2 bg-cream"><i class="ph ph-robot text-accent"></i> IA de atendimento 24/7</li>
+                            <li class="flex items-center gap-2 text-sm text-ink border border-line rounded-full px-4 py-2 bg-cream"><i class="ph ph-calendar-check text-accent"></i> Mais agendamentos</li>
+                        </ul>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                            <a href="#contato" class="btn btn-accent px-8 py-4 text-sm font-semibold tracking-wide inline-flex items-center justify-center gap-3">
+                                Quero meu mês grátis <i class="ph ph-arrow-right"></i>
+                            </a>
+                            <a href="https://aioscrm.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm tracking-wide font-medium text-ink-soft hover:text-ink transition-colors">
+                                Conhecer o Aios <i class="ph ph-arrow-up-right"></i>
+                            </a>
+                        </div>
+
+                        <p class="text-xs text-ink-soft mt-6 tracking-wide flex items-center gap-2"><i class="ph ph-gift text-accent"></i> Benefício incluído na locação Spazio.</p>
+                    </div>
+
+                    <!-- Logo / brand visual -->
+                    <div class="relative flex items-center justify-center p-12 md:p-16 overflow-hidden order-1 lg:order-2 min-h-[260px]" style="background:#16120F;">
+                        <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(52% 52% at 50% 50%, rgba(225,29,116,.50), rgba(43,58,158,.40) 42%, rgba(28,166,76,.28) 68%, transparent 80%); filter:blur(6px);"></div>
+                        <div class="absolute inset-0 pointer-events-none opacity-[0.07]" style="background-image:radial-gradient(circle at 1px 1px, #fff 1px, transparent 0); background-size:22px 22px;"></div>
+                        <img src="fotos/aios-logo.png" alt="Aios — CRM e IA de atendimento" class="relative w-40 md:w-56 h-auto drop-shadow-[0_24px_48px_rgba(0,0,0,.55)]"/>
+                        <span class="absolute bottom-6 left-1/2 -translate-x-1/2 text-[11px] tracking-[0.4em] uppercase text-white/70">Aios CRM</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section id="contato" class="py-28 md:py-36 px-5 md:px-8 bg-cream flex flex-col items-center justify-center text-center reveal">
+            <span class="h-14 w-px bg-accent mb-8 opacity-60"></span>
+            <span class="text-xs tracking-[0.28em] uppercase text-accent font-medium mb-6">Vamos conversar</span>
+            <h2 class="font-display text-4xl md:text-7xl tracking-[-0.02em] leading-[1.02] text-ink mb-7 max-w-4xl" style="font-weight:400;">
+                A excelência clínica <span class="italic text-accent">não espera.</span>
+            </h2>
+            <p class="text-ink-soft mb-11 max-w-lg text-lg leading-relaxed">Verifique a disponibilidade das tecnologias na sua região e inicie sua reserva premium hoje mesmo.</p>
+
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20uma%20cota%C3%A7%C3%A3o%20de%20loca%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer"
+               class="btn btn-ink px-10 py-5 text-base font-semibold tracking-wide flex items-center gap-4 hover-lift shadow-[0_24px_50px_-22px_rgba(46,39,34,.55)]">
+                <i class="ph ph-whatsapp text-2xl text-accent"></i>
+                Falar com consultor
+            </a>
+            <span class="text-xs text-ink-soft mt-6 tracking-[0.16em] uppercase">Atendimento comercial via WhatsApp</span>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-warm py-12 px-5 md:px-8 text-sm text-ink-soft border-t border-line">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <a href="#" class="flex items-center gap-3">
+                <svg viewBox="0 0 40 40" class="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18.5" stroke="#BFA181" stroke-width="1.3"/>
+                    <path d="M20 11c2.6 3.1 5 5.6 5 9a5 5 0 11-10 0c0-3.4 2.4-5.9 5-9z" fill="#BFA181"/>
+                </svg>
+                <span class="leading-none">
+                    <span class="font-display text-lg text-ink" style="font-weight:500;">Spazio</span>
+                    <span class="block text-[8px] tracking-[0.42em] uppercase text-ink-soft mt-0.5">Locações</span>
+                </span>
+            </a>
+            <span class="text-xs tracking-wide">© 2026 Spazio Locações · Tecnologia estética de alta performance</span>
+            <div class="flex gap-6 uppercase tracking-[0.16em] text-[10px] font-medium">
+                <a href="#" class="hover:text-ink transition-colors">Instagram</a>
+                <a href="#" class="hover:text-ink transition-colors">Termos</a>
+                <a href="#" class="hover:text-ink transition-colors">Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const appearOnScroll = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('active');
+                    obs.unobserve(entry.target);
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.reveal, .img-mask-reveal').forEach(el => appearOnScroll.observe(el));
+
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                navbar.style.boxShadow = window.scrollY > 40 ? '0 10px 40px -24px rgba(46,39,34,.35)' : 'none';
+            });
+
+            const mobileBtn = document.querySelector('button.md\\:hidden');
+            if (mobileBtn) mobileBtn.addEventListener('click', () => { window.location.href = "#contato"; });
+        });
+    </script>
+</body>
+</html>
